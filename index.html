@@ -1,72 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
-    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js" charset="utf-8"></script>
+    <title>TensorFlow.js Carros</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <!-- tfjs-vis -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+
+    
+
 </head>
 
 <body>
-    <div id="myPlot"></div>
-
-    <script>
-
-        const xs = tf.tensor([0,1,2,3,4]);//entrada 
-        const ys = xs.mul(1.2).add(5);         
-        //y = 1.2x + 5
-
-        ys.print()
-
-        //saida de regressao linear
-        const model = tf.sequential();
-        //apenas uma camada 
-        model.add(tf.layers.dense({units:1, inputShape:[1]}));
-        
-        //na documencatao ( func de perda > min square erro)
-        ////https://js.tensorflow.org/api/latest/?hl=pt-br#losses.meanSquaredError
-        //especifica func de erro e o otimizador
-        model.compile({loss:'meanSquaredError', optimizer:'sgd'});
-
-        model.fit(xs, ys, {epochs:500}).then(() => {
-            myFunction();
-        });
-
-
-        function myFunction(){
-            //num max de pontos
-            const xMax = 10;
-            const xArr = [];
-            const yArr = [];
-
-            for (let x = 0; x <= xMax; x++) {
-                let result  = model.predict(tf.tensor([Number(x)]));
-                result.data().then(y => {
-                    xArr.push(x);
-                    yArr.push(Number(y));
-                    if(x ==xMax){
-                        plot(xArr, yArr)
-                        if( x == xMax) { plot(xArr, yArr); }
-                    };        
-            })};
-            document.getElementById('mesage').style.display='none';
-        };
-        
-        function plot(xArr, yArr){
-            const data = [{x:xArr, y:yArr,mode:"markers",type:"scatter"}]
-        
-        const layout = {
-            xaxis: {range: [0,10]},
-            yaxis: {range: [0,20]}
-        };
-
-        Plotly.newPlot("myPlot",data,layout);        
-    }
-        
-    </script>
+    <script src="script.js"></script>
 
 </body>
 
